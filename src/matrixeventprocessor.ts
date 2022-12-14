@@ -260,6 +260,8 @@ export class MatrixEventProcessor {
                 this.mxUserProfileCache.delete(event.sender);
             }
             if (membership === "join" && isNewJoin && allowJoinLeave) {
+                const oldEvent = (await client.getEvent(event.room_id, event.unsigned?.replaces_state)).content.membership !== "join";
+                console.log(oldEvent)
                 msg += "joined the room";
             } else if (membership === "invite" && allowInvite) {
                 msg += `invited \`${event.state_key}\` to the room`;
