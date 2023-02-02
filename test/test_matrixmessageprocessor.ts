@@ -425,5 +425,15 @@ describe("MatrixMessageProcessor", () => {
             const result = await mp.FormatMessage(msg, guild as any, params as any);
             expect(result).is.equal("_fox\\_floof floofs_");
         });
+        it("escape quotes properly", async () => {
+            const mp = new MatrixMessageProcessor(bot, config);
+            const guild = new MockGuild("1234");
+            const msg = getHtmlMessage("it&#x27;s a <code>test</code>");
+            const params = {
+                displayname: "f",
+            };
+            const result = await mp.FormatMessage(msg, guild as any, params as any);
+            expect(result).is.equal("it's a `test`");
+        });
     });
 });
